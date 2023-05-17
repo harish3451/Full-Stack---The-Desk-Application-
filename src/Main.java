@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.*;
 import java.util.Scanner;
 
 public class Main {
@@ -90,11 +91,74 @@ public class Main {
             }
     private static void searchExpenses(ArrayList<Integer> arrayList) {
         int leng = arrayList.size();
+        Scanner sc = new Scanner(System.in);
         System.out.println("Enter the expense you need to search:\t");
         //Complete the method
+        int num = sc.nextInt();
+        Sorting st = new Sorting(arrayList);
+        
+        BinarySearch bsr = new BinarySearch() ;
+        int n=bsr.BinarySearch(arrayList, num);
+        if(n==1) {
+        	System.out.println("Entered Expense found.");
+        }
+        else {
+        	System.out.println("Entered Expense not present in Expenditure");
+        }
+        System.out.println("\n");
     }
     private static void sortExpenses(ArrayList<Integer> arrayList) {
         int arrlength =  arrayList.size();
        //Complete the method. The expenses should be sorted in ascending order.
+        Sorting st = new Sorting(arrayList);
+        System.out.println("Sorted Expenditure");
+        for(int i=0;i<arrlength;i++) {
+        	System.out.print(arrayList.get(i)+" ");
+        }
+        System.out.println("\n");
     }
+	
 }
+
+class Sorting{
+	Sorting(ArrayList<Integer> array){
+		int n= array.size();
+		for(int i=0;i<n-1;i++) {
+			for(int j=i+1;j<n;j++) {
+				if(array.get(i)>array.get(j)) {
+					int temp = array.get(i);
+					array.set(i,array.get(j)) ;
+					array.set(j, temp);
+					
+				}
+			}
+		}
+	}
+	
+}
+class BinarySearch{
+
+	public int BinarySearch(ArrayList<Integer> arrayList, int num) {
+		// TODO Auto-generated constructor stub
+		int min =0;
+		int max =arrayList.size();
+		while(min<=max) {
+			
+			int mid = (min+max)/2;
+			if(arrayList.get(mid) == num) {
+				return 1;
+			}
+			else if(arrayList.get(mid)>num) {
+				max= mid-1;
+			}
+			else {
+				min = mid+1;
+			}
+		}
+		return 0;	
+	}
+}
+
+
+
+
